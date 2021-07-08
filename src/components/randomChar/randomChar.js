@@ -63,7 +63,7 @@ export default class RandomChar extends Component {
         const content = !(loading || error) ? <View char={char} /> : null;
 
         return (
-            <RandomCharBlock className={(this.props.visible ? 'block' : 'none') + ' rounded'}>
+            <RandomCharBlock className={(this.props.visible ? "block" : "none") + " rounded"}>
                 {errorMessage}
                 {spinner}
                 {content}
