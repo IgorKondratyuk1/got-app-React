@@ -1,23 +1,13 @@
 import React from "react";
-import styled from "styled-components";
+import './errorMessage.css';
 import img from './error.jpg';
 
-const ErrorSpan = styled.span`
-	display: block;
-	text-align: center;
-	color: red;
-`
-
-const ErrorImg = styled.img`
-	width: 100%;
-	border-radius: 10px;
-`
 
 const ErrorMessage = () => {
 	return (
 		<>
-			<ErrorSpan>Something goes wrong</ErrorSpan>
-			<ErrorImg src={img} alt='error'></ErrorImg>
+			<span className="error-message">Something goes wrong</span>
+			<img className="error-img" src={img} alt='error'></img>
 		</>
 	)
 }

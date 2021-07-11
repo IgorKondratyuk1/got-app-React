@@ -1,11 +1,15 @@
-.block {
-    display: block;
+.toggle-btn {
+    padding: 12px;
+    background-color: #1e2edb;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    margin-bottom: 40px;
+    outline: none;
+    box-shadow: 0px 0px 30px rgba(256,256,256,.1);
+    cursor: pointer;
 }
 
-.none {
-    display: none;
-}
-
-.mt-20 {
-    margin-top: 20px;
+.toggle-btn:focus {
+    outline: none;
 }
