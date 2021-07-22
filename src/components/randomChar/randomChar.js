@@ -1,50 +1,57 @@
 import React, {Component} from 'react';
-import GOTService from '../../services/gotServices';
-import Spinner from '../spinner';
-import ErrorMessage from '../errorMessage';
 import './randomChar.css';
+import gotService from '../../services/gotService';
+import Spinner from '../spinner/';
+import ErrorMessage from '../error/';
+
 
 export default class RandomChar extends Component {
-    constructor() {
-        super();
-        this.updateCharacter();
-    }
 
-    GOTService = new GOTService();
+    gotService = new gotService();
     state = {
-        char: {},
+        char : {},
         loading: true,
         error: false
+    };
+
+    componentDidMount() {
+        this.updateChar();
+        // this.timerId = setInterval(this.updateChar, 1500);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timerId);
     }
 
     onCharLoaded = (char) => {
         this.setState({
             char,
             loading: false
-        })
-    }
+        });
+    };
 
     onError = (err) => {
         this.setState({
             error: true,
             loading: false
-        })
+        });
     }
 
-    updateCharacter() {
-        let id = Math.floor(Math.random()*140 + 25); // 25-140
-        this.GOTService.getCharacter(id)
-            .then(this.onCharLoaded)
-            .catch(this.onError);
+    updateChar = () => {
+        const id = Math.floor(Math.random()*140 + 25);
+        // const id = 130000;
+        this.gotService
+          .getCharacter(id)
+          .then(this.onCharLoaded)
+          .catch(this.onError);
     }
-
 
     render() {
         const {char, loading, error} = this.state;
-
         const errorMessage = error ? <ErrorMessage/> : null;
         const spinner = loading ? <Spinner/> : null;
         const content = !(loading || error) ? <View char={char} /> : null;
+        
 
         return (
             <div className="random-block rounded">
@@ -58,27 +65,28 @@ export default class RandomChar extends Component {
 
 const View = ({char}) => {
     const {name, gender, born, died, culture} = char;
+
     return (
         <>
             <h4>Random Character: {name}</h4>
             <ul className="list-group list-group-flush">
                 <li className="list-group-item d-flex justify-content-between">
-                    <span>Gender </span>
+                    <span className="term">Gender </span>
                     <span>{gender}</span>
                 </li>
                 <li className="list-group-item d-flex justify-content-between">
-                    <span>Born </span>
+                    <span className="term">Born </span>
                     <span>{born}</span>
                 </li>
                 <li className="list-group-item d-flex justify-content-between">
-                    <span>Died </span>
+                    <span className="term">Died </span>
                     <span>{died}</span>
                 </li>
                 <li className="list-group-item d-flex justify-content-between">
-                    <span>Culture </span>
+                    <span className="term">Culture </span>
                     <span>{culture}</span>
                 </li>
             </ul>
         </>
-    );
+    )
 }
